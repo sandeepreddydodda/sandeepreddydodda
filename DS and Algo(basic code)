@@ -1,0 +1,282 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+}*first, *last, *t;
+
+void create(int A[], int n)
+{
+    int i;
+    first = (struct node*) malloc(sizeof(struct node));
+    
+    first->data = A[0];
+    first->next = NULL;
+    last = first;
+    
+    for(i=1; i<n; i++)
+    {
+        t = (struct node*) malloc(sizeof(struct node));
+        t->data = A[i];
+        t->next = NULL;
+        last->next = t;
+        last = t;
+    }
+    
+}
+
+void display(struct node *p)
+    {
+        if(p!=NULL)
+        {
+            printf("%d ", p->data);
+            display(p->next);
+        }
+    }
+    
+
+int count(struct node *q)
+{
+    int count = 0;
+    while(q!=0)
+    {
+        count = count + 1;
+        q = q->next;
+    }
+    return count;
+
+}
+
+int sum(struct node *r)
+{
+    int sum = 0;
+    while(r!=0)
+    {
+        sum = sum + r->data;
+        r = r->next;
+    }
+    return sum;
+}
+
+int max(struct node *s)
+{
+    int max = -32768;
+    
+    while(s!=0)
+    {
+        if(s->data > max)
+        {
+            max = s->data;
+            
+        }
+        s = s->next;
+        
+    }
+    return max;
+}
+
+struct node* search(struct node *o, int f)
+{
+    
+    while(o!=0)
+    {
+        if(o->data == f)
+        {
+        return(o);
+        break;
+        }
+        o = o->next;
+        
+        
+    }
+    return NULL;
+    
+}
+
+struct node* insert(struct node* p, int position, int value)
+{
+    struct node *t;
+    if(position ==0)
+    {
+        t = (struct node*) malloc(sizeof(struct node));
+        t->data = value;
+        t->next = first;
+        first = t;
+    }
+    else if(position>0 && position<count(p)+1)
+    {
+        int i;
+        p = (struct node*) malloc(sizeof(struct node));
+        t = (struct node*) malloc(sizeof(struct node));
+        p = first;
+        
+        for(i=0; i<position-1; i++)
+        {
+            p = p->next;
+        }
+        t->data = value;
+        t->next = p->next;
+        p->next = t;
+    }
+    else {
+        printf("Node cant be inserted as location is unavailable\n");
+        return NULL;
+    }
+    return t;
+}
+
+void sortedinsert(struct node *p, int k)
+{
+    struct node *s, *t, *e;
+    s = first;
+    t = NULL;
+    
+    while(s->data < k)
+    {
+        t = s;
+        s = s->next;
+        
+    }
+    e = (struct node*) malloc(sizeof(struct node));
+    e->data = k;
+    
+    e->next = t->next;
+    t->next = e;
+    
+}
+
+void removeDuplicate(struct node *e)
+{
+    struct node *p, *q;
+    p = first;
+    q = first->next;
+    
+    while(q!=0)
+    {
+        if(p->data != q->data)
+        {
+            q = q->next;
+            p = p->next;
+        }
+        else{
+            p->next = q->next;
+            free (q);
+            q = p->next;
+        }
+    }
+}
+
+void reverse(struct node*q,int a[], int g)
+{
+    int i =0;
+    struct node *p;
+    p = q;
+    
+    while(p!= NULL)
+    {
+        
+        a[i] = p->data;
+        p = p->next;
+        i++;
+        
+        
+    }
+        p = q;
+        i--;
+        
+        while(p!=0)
+        {
+            p->data = a[i];
+            p = p->next;
+            i--;
+        
+        }
+}
+
+void reverseLinks(struct node *first)
+{
+    struct node *p, *q, *r;
+    p =first;
+    q = NULL;
+    r = NULL;
+    
+    while(p!= 0)
+    {
+        r = q;
+        q = p;
+        p = p->next; //*due to this statement
+        q->next = r;
+        
+    }
+    first = q; //as P already went inside null*
+}
+
+int main()
+    {
+        int A[]={2,4,6,8,10};
+        int n = 5;
+        int x, y, z, key, m, sortedKey, i;
+        int l, pos, val;
+        
+        create(A, n);
+        
+        display(first);
+        
+        printf("\n");
+        
+        x = count(first);
+        printf("%d\n", x);
+        
+        y = sum(first);
+        printf("%d\n", y);
+        
+        z = max(first);
+        printf("%d\n", z);
+        
+        printf("Enter the element you want to search\n");
+        scanf("%d", &key);
+        
+        m = search(first, key);
+        printf("%d\n", m);
+        
+        printf("Enter the position and value\n");
+        scanf("%d %d", &pos, &val);
+        l = insert(first, pos, val);
+        printf("%d\n", l);
+        
+        display(first);
+        
+        printf("\n");
+        printf("Enter the key you want to insert in the linked list\n");
+        scanf("%d", &sortedKey);
+        
+        sortedinsert(first, sortedKey);
+        display(first);
+        
+        removeDuplicate(first);
+        
+        printf("\n");
+        display(first);
+        
+        int arr[count(first)];
+        reverse(first, arr, count(first));
+        
+        printf("\n");
+        for(i=0; i<count(first); i++)
+        {
+            printf("%d ", arr[i]);
+        }
+        
+        printf("\n");
+        display(first);
+        
+        reverseLinks(first);
+        printf("\n");
+        display(first);
+        
+    }
+
+
+
