@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct stack
+{
+    int size;
+    int top;
+    int *arr;
+};
+void create(struct stack *st)
+{
+    printf("Enter size of the stack\n");
+    scanf("%d", &st->size);
+    st->top=-1;
+    st->arr = (int *) malloc(st->size*sizeof(int));
+}
+
+void push(struct stack *st, int x)
+{
+    if(st->top == st->size-1)
+        printf("Stack Overflow\n");
+    else
+    {
+        st->top++;
+        st->arr[st->top] = x;
+    }
+}
+
+void pop(struct stack *st)
+{
+    int x = -1;
+    if(st->top == -1)
+    {
+        printf("Nothing to clear\n");
+    }
+    else
+    {
+        x = st->arr[st->top];
+    }
+}
+void display(struct stack *st)
+{
+    int i;
+    for(i=st->top; i>=0; i--)
+    {
+        printf("%d\n", st->arr[i]);
+    }
+}
+
+void stackTop(struct stack *st)
+{
+    if(st->top ==-1)
+        printf("0\n");
+    else
+        printf("%d\n", st->arr[st->top]);
+}
+
+void isEmpty(struct stack *st)
+{
+    if(st->top == -1)
+        printf("1\n");
+    else
+        printf("0\n");
+    
+}
+
+void isFull(struct stack *st)
+{
+    if(st->top == st->size-1)
+        printf("1\n");
+    else
+        printf("0\n");
+}
+
+void peek(struct stack *st, int pos)
+{
+    if(st->top!=-1)
+    {
+    int index = st->top - pos+1;
+    printf("%d\n", st->arr[index]);
+    }
+    else
+    {
+        printf("No value present in that position\n");
+        
+    }
+    
+}
+
+int main()
+{
+    struct stack s;
+    create(&s);
+    push(&s, 50);
+    push(&s, 40);
+    push(&s, 30);
+    push(&s, 20);
+    push(&s, 10);
+    display(&s);
+    stackTop(&s);
+    isEmpty(&s);
+    isFull(&s);
+    peek(&s, 4);
+    peek(&s, 6);
+}
