@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+class Student
+{
+    int rollNo;
+    string name;
+    int marks[3];
+public:
+    Student(int r, string n, int m[3])
+    {
+        rollNo = r;
+        name = n;
+        for(int i=0; i<3; i++)
+        {
+            marks[i] = m[i];
+        }
+    }
+    int totalMarks();
+    int Grade();
+    
+};
+int Student :: totalMarks()
+{
+    return marks[0]+marks[1]+marks[2];
+}
+int Student :: Grade()
+{
+    int A = 10;
+    int B = 9;
+    int C = 8;
+    if(totalMarks()>250)
+    {
+        return A;
+    }
+    else if (totalMarks()>200 && totalMarks()<250)
+    {
+        return B;
+    }
+    else{
+        return C;
+    }
+}
+int main()
+{
+    int r;
+    string name;
+    int marks[3];
+    cout<<"Enter the roll no of student"<<endl;
+    cin>>r;
+    cout<<"Enter the name of student"<<endl;
+    cin>>name;
+    cout<<"Enter the marks of the student in three different subjects"<<endl;
+    for(int i=0; i<3; i++)
+    {
+        cin>>marks[i];
+    }
+    Student S1(r, name, marks);
+    cout<<"Total marks obtained by student is "<<S1.totalMarks()<<endl;
+    cout<<"Grade point obtained by student is "<<S1.Grade()<<endl;
+}
