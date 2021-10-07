@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+
+class Rectangle
+{
+private:
+    int length;
+    int breadth;
+public:
+    Rectangle(); //Non Parameterized Constructor
+    Rectangle(int l, int b); //Paramaterized Constructor
+    Rectangle(Rectangle &r); //Copy Constructor
+    int getLength(); //Accessor function
+    int getBreadth(); //Accessor function
+    void setLength(int l); //Mutator function
+    void setBreadth(int b); //Mutator function
+    int area(); //Facilitating function
+    int perimeter(); //Facilitating function
+    bool isSquare(); //Enquiry function
+    ~Rectangle(); //Destructor function
+};
+
+int main()
+{
+    Rectangle R1(10,20);
+    cout<<R1.area()<<endl;
+    
+    
+}
+Rectangle :: Rectangle()
+{
+    length = 1;
+    breadth = 1;
+}
+Rectangle :: Rectangle(int l, int b)
+{
+    setLength(l);
+    setBreadth(b);
+}
+Rectangle :: Rectangle(Rectangle &r)
+{
+    length = r.length;
+    breadth = r.breadth;
+}
+int Rectangle :: getLength()
+{
+    return length;
+}
+int Rectangle :: getBreadth()
+{
+    return breadth;
+}
+void Rectangle :: setLength(int l)
+{
+    if(l>0)
+        length = l;
+    else
+        cout<<"Length cannot be negative"<<endl;
+}
+void Rectangle :: setBreadth(int b)
+{
+    if(b>0)
+        breadth = b;
+    else
+        cout<<"Breadth cannot be negative"<<endl;
+}
+int Rectangle :: area()
+{
+    return length*breadth;
+}
+int Rectangle :: perimeter()
+{
+    return 2*(length + breadth);
+}
+bool Rectangle :: isSquare()
+{
+    return length == breadth;
+}
+Rectangle :: ~Rectangle()
+{
+    cout<<"Rectangle is destroyed"<<endl;
+}
+
+
+
