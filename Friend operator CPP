@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+class complex
+{
+    int real;
+    int img;
+    
+public:
+    complex(int r = 0, int i =0)
+    {
+        real = r;
+        img = i;
+    }
+    
+    friend complex operator+(complex x, complex y);
+    friend complex operator-(complex x, complex y);
+    
+    int getreal()
+    {
+        return real;
+    }
+    int getimg()
+    {
+        return img;
+    }
+};
+complex operator+(complex x, complex y)
+{
+    complex temp;
+    temp.real = x.real + y.real;
+    temp.img = x.img + y.img;
+    return temp;
+}
+complex operator-(complex x, complex y)
+{
+    complex temp2;
+    temp2.real = x.real - y.real;
+    temp2.img = x.img - y.img;
+    return temp2;
+}
+
+int main()
+{
+    complex C1(145,169);
+    complex C2(243,131);
+    complex C3 = C1+C2+C1+C2;
+    complex C4 = C1-C2;
+    cout<<"Complex Number after addition is "<<C3.getreal()<<" +"<<C3.getimg()<<"i"<<endl;
+    cout<<"Complex Number after subtraction is "<<C4.getreal()<<" +"<<C4.getimg()<<"i"<<endl;
+}
+
